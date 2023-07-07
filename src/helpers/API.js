@@ -15,3 +15,17 @@ export const getMovieForId = id => {
   const data = axios.get(`${BASE_URL}/movie/${id}?api_key=${API_KEY}&${LNG}`);
   return data;
 };
+
+export const getActorsForMovie = id => {
+  const data = axios.get(
+    `${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}&${LNG}`
+  );
+  return data;
+};
+
+export const getReviewsForMovie = id => {
+  const data = axios.get(
+    `${BASE_URL}/movie/${id}/reviews?api_key=${API_KEY}&${LNG}`
+  );
+  return data;
+};

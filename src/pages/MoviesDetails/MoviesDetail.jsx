@@ -1,6 +1,6 @@
 import { getMovieForId } from 'helpers/API';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -38,15 +38,29 @@ const MovieDetails = () => {
   }, [id]);
   return (
     <main>
-      <img src={`https://image.tmdb.org/t/p/w500/${poster}`} alt="" />
-      <h2>{`${title} ${releaseData}`}</h2>
-      <p>{`Rating: ${rating.toFixed(2)}`}</p>
-      <h3>Overview</h3>
-      <p>{overview}</p>
-      <h3>Genres</h3>
-      {genres.map(i => (
-        <p key={i.id}>{i.name}</p>
-      ))}
+      <section>
+        <img src={`https://image.tmdb.org/t/p/w500/${poster}`} alt="" />
+        <h2>{`${title} ${releaseData}`}</h2>
+        <p>{`Rating: ${rating.toFixed(2)}`}</p>
+        <h3>Overview</h3>
+        <p>{overview}</p>
+        <h3>Genres</h3>
+        {genres.map(i => (
+          <p key={i.id}>{i.name}</p>
+        ))}
+      </section>
+      <section>
+        <h2>Additional information</h2>
+        <ul>
+          <li>
+            <Link to='cast'>Cast</Link>
+          </li>
+          <li>
+            <Link to='reviews'>Reviews</Link>
+          </li>
+        </ul>
+        <Outlet />
+      </section>
     </main>
   );
 };
