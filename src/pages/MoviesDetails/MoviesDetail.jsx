@@ -1,20 +1,26 @@
+import Loader from 'components/Loader/Loader';
+import Button from '@mui/material/Button';
 import { getMovieForId } from 'helpers/API';
-import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 
 const MovieDetails = () => {
   const { id } = useParams();
-
   const [title, setTitle] = useState('');
   const [poster, setPoster] = useState('');
   const [releaseData, setReleaseData] = useState('');
   const [overview, setOverview] = useState('');
   const [genres, setGenres] = useState([]);
   const [rating, setRating] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [err, setErr] = useState(null);
 
+  const location = useLocation();
+  const locationRef = useRef(location.state?.from); // location.state && location.state.from
   useEffect(() => {
     const getFilm = async id => {
       try {
+        setIsLoading(true);
         const response = await getMovieForId(id);
         const {
           release_date,
@@ -31,7 +37,9 @@ const MovieDetails = () => {
         setGenres([...genres]);
         setRating(vote_average);
       } catch (error) {
-        console.log(error);
+        setErr(error.message);
+      } finally {
+        setIsLoading(false);
       }
     };
     getFilm(id);
@@ -39,6 +47,7 @@ const MovieDetails = () => {
   return (
     <main>
       <section>
+        <Link to={locationRef.current ?? '/'}>Go Back</Link>
         <img src={`https://image.tmdb.org/t/p/w500/${poster}`} alt="" />
         <h2>{`${title} ${releaseData}`}</h2>
         <p>{`Rating: ${rating.toFixed(2)}`}</p>
@@ -53,14 +62,16 @@ const MovieDetails = () => {
         <h2>Additional information</h2>
         <ul>
           <li>
-            <Link to='cast'>Cast</Link>
+            <Link to="cast">Cast</Link>
           </li>
           <li>
-            <Link to='reviews'>Reviews</Link>
+            <Link to="reviews">Reviews</Link>
           </li>
         </ul>
         <Outlet />
       </section>
+      {isLoading ? <Loader /> : null}
+      {err ? <p>{err}</p> : null}
     </main>
   );
 };

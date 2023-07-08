@@ -29,3 +29,13 @@ export const getReviewsForMovie = id => {
   );
   return data;
 };
+
+export const getMoviesBySearchTerm = value => {
+  const data = axios.get(`${BASE_URL}/search/movie`, {
+    params: {
+      query: value,
+      api_key: API_KEY,
+    },
+  });
+  return data;
+};
