@@ -1,5 +1,4 @@
 import Loader from 'components/Loader/Loader';
-import Button from '@mui/material/Button';
 import { getMovieForId } from 'helpers/API';
 import { useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
