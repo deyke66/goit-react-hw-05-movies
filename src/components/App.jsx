@@ -1,7 +1,9 @@
 import { Suspense, lazy } from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
+import { NavLink, Route, Routes } from 'react-router-dom';
 import Loader from './Loader/Loader';
 import NotFound from 'pages/NotFound/NotFound';
+import Container from '@mui/material/Container';
+import css from './App.module.css';
 
 const Cast = lazy(() => import('pages/Cast/Cast'));
 const Home = lazy(() => import('pages/Home/Home'));
@@ -11,10 +13,20 @@ const Reviews = lazy(() => import('pages/Review/Review'));
 
 export const App = () => {
   return (
-    <div>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/movies">Movies</Link>
+    <Container>
+      <nav className={css.nav}>
+        <NavLink
+          className={({ isActive }) => (isActive ? css.active : css.unactive)}
+          to="/"
+        >
+          Home
+        </NavLink>
+        <NavLink
+          className={({ isActive }) => (isActive ? css.active : css.unactive)}
+          to="/movies"
+        >
+          Movies
+        </NavLink>
       </nav>
       <Suspense fallback={<Loader />}>
         <Routes>
@@ -27,6 +39,6 @@ export const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
-    </div>
+    </Container>
   );
 };

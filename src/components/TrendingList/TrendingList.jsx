@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
+import PropTypes from 'prop-types';
 
 const TrendingList = ({ films, location }) => {
   return (
@@ -43,3 +44,8 @@ const TrendingList = ({ films, location }) => {
 };
 
 export default TrendingList;
+
+TrendingList.propTypes = {
+  films: PropTypes.array,
+  location: PropTypes.object,
+};

@@ -2,6 +2,8 @@ import Loader from 'components/Loader/Loader';
 import { getMovieForId } from 'helpers/API';
 import { useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import css from './MovieDetails.module.css';
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -44,27 +46,36 @@ const MovieDetails = () => {
     getFilm(id);
   }, [id]);
   return (
-    <main>
-      <section>
-        <Link to={locationRef.current ?? '/'}>Go Back</Link>
+    <main className={css.main}>
+      <section className={css.section}>
+        <div>
+          <Link to={locationRef.current ?? '/'}>
+            <Button variant="contained">Go Back</Button>
+          </Link>
+        </div>
+
         <img src={`https://image.tmdb.org/t/p/w500/${poster}`} alt="" />
-        <h2>{`${title} ${releaseData}`}</h2>
-        <p>{`Rating: ${rating.toFixed(2)}`}</p>
-        <h3>Overview</h3>
-        <p>{overview}</p>
-        <h3>Genres</h3>
+        <h2 className={css.h2}>{`${title} ${releaseData}`}</h2>
+        <p className={css.p}>{`Rating: ${rating.toFixed(2)}`}</p>
+        <h3 className={css.h3}>Overview</h3>
+        <p className={css.p}>{overview}</p>
+        <h3 className={css.h3}>Genres</h3>
         {genres.map(i => (
           <p key={i.id}>{i.name}</p>
         ))}
       </section>
       <section>
         <h2>Additional information</h2>
-        <ul>
+        <ul className={css.ul}>
           <li>
-            <Link to="cast">Cast</Link>
+            <Link to="cast">
+              <Button variant="contained">Cast</Button>
+            </Link>
           </li>
           <li>
-            <Link to="reviews">Reviews</Link>
+            <Link to="reviews">
+              <Button variant="contained">Reviews</Button>
+            </Link>
           </li>
         </ul>
         <Outlet />

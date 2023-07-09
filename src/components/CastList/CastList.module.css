@@ -1,0 +1,26 @@
+.li {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.div {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.img {
+  margin-right: 10px;
+}
+
+.h2 {
+  font-size: 30px;
+  margin: 0;
+}
+
+.p {
+  font-size: 20px;
+  margin: 0;
+}

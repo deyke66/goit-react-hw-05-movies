@@ -1,0 +1,16 @@
+.active {
+  color: blue;
+  font-size: 40px;
+  padding: 20px;
+}
+
+.unactive {
+  color: black;
+  font-size: 40px;
+  padding: 20px;
+}
+
+.nav {
+  display: flex;
+  gap: 30px;
+}
